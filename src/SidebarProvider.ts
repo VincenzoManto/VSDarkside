@@ -3,8 +3,22 @@ import * as vscode from "vscode";
 export class SidebarProvider implements vscode.WebviewViewProvider {
     _view?: vscode.WebviewView;
     _doc?: vscode.TextDocument;
+    _who: string = 'luke';
 
     constructor(private readonly _extensionUri: vscode.Uri) { }
+
+    public change(who: string) {
+        if (this._view) {
+            this._who = who;
+            this._view.webview.html = this._getHtmlForWebview(this._view?.webview, who);
+        }
+    }
+
+    public play(what: string) {
+        if (this._view) {
+            this._view.webview.html = this._getHtmlForWebview(this._view?.webview, this._who, what);
+        }
+    }
 
     public resolveWebviewView(webviewView: vscode.WebviewView) {
         this._view = webviewView;
@@ -16,40 +30,8 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
             localResourceRoots: [this._extensionUri],
         };
 
-        webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
+        webviewView.webview.html = this._getHtmlForWebview(webviewView.webview, 'luke');
 
-        // Listen for messages from the Sidebar component and execute action
-        webviewView.webview.onDidReceiveMessage(async (data) => {
-            switch (data.type) {
-                case "onFetchText": {
-                    let editor = vscode.window.activeTextEditor;
-
-                    if (editor === undefined) {
-                        vscode.window.showErrorMessage('No active text editor');
-                        return;
-                    }
-
-                    let text = editor.document.getText(editor.selection);
-                    // send message back to the sidebar component
-                    this._view?.webview.postMessage({ type: "onSelectedText", value: text });
-                    break;
-                }
-                case "onInfo": {
-                    if (!data.value) {
-                        return;
-                    }
-                    vscode.window.showInformationMessage(data.value);
-                    break;
-                }
-                case "onError": {
-                    if (!data.value) {
-                        return;
-                    }
-                    vscode.window.showErrorMessage(data.value);
-                    break;
-                }
-            }
-        });
 
     }
 
@@ -57,31 +39,60 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
         this._view = panel;
     }
 
-    private _getHtmlForWebview(webview: vscode.Webview) {
+    private _getHtmlForWebview(webview: vscode.Webview, who: string, what = '') {
         const styleResetUri = webview.asWebviewUri(
-            vscode.Uri.joinPath(this._extensionUri, "media", "reset.css")
+            vscode.Uri.parse(this._extensionUri + "/media/reset.css")
         );
         const styleVSCodeUri = webview.asWebviewUri(
-            vscode.Uri.joinPath(this._extensionUri, "media", "vscode.css")
+            vscode.Uri.parse(this._extensionUri + "/media/vscode.css")
         );
         const scriptUri = webview.asWebviewUri(
-            vscode.Uri.joinPath(this._extensionUri, "out", "compiled/sidebar.js")
+            vscode.Uri.parse(this._extensionUri + "/out/compiled/sidebar.js")
         );
         const styleMainUri = webview.asWebviewUri(
-            vscode.Uri.joinPath(this._extensionUri, "out", "compiled/sidebar.css")
+            vscode.Uri.parse(this._extensionUri + "/out/compiled/sidebar.css")
         );
+        const luke = webview.asWebviewUri(
+            vscode.Uri.parse(this._extensionUri + "/media/" + who + ".gif")
+        );
+        const land = webview.asWebviewUri(
+            vscode.Uri.parse(this._extensionUri + "/media/land.png")
+        );
+        const title = webview.asWebviewUri(
+            vscode.Uri.parse(this._extensionUri + "/media/title.png")
+        );
+        const audio = webview.asWebviewUri(
+            vscode.Uri.parse(this._extensionUri + "/media/" + what + ".mp3")
+        );
+
+        const heights: {[key: string]: number} = {
+            'luke': 200,
+            'yoda': 200,
+            'darth': 170,
+            'grev2': 170,
+            'asoka': 200,
+            'kylo': 150,
+            'kylo2': 150,
+            'palpatine': 150,
+            'maul': 200,
+            'droid': 120,
+            'dick': 190,
+            'darth2': 170,
+            'darth3': 170,
+            'obi': 210,
+            'asoka2': 170,
+            'darth4': 150
+        };
+        const height: number = heights[who] || 200;
 
         // Use a nonce to only allow a specific script to be run.
         const nonce = getNonce();
 
         return `<!DOCTYPE html>
-			<html lang="en">
+			<html lang="en" style="overflow:hidden; padding: 0; margin: 0; height:auto; background: #0b314733">
 			<head>
 				<meta charset="UTF-8">
-				<!--
-					Use a content security policy to only allow loading images from https or from our extension directory,
-					and only allow scripts that have a specific nonce.
-        -->
+
         <meta http-equiv="Content-Security-Policy" content="img-src https: data:; style-src 'unsafe-inline' ${webview.cspSource
             }; script-src 'nonce-${nonce}';">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -93,7 +104,14 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
                 </script>
 
 			</head>
-            <body>
+            <body style="overflow:hidden;  padding: 0; margin: 0;  height:auto;background: #0b314733; ">
+                <audio autoplay>
+                <source src="${audio}" type="audio/mp3">
+                </audio>
+                <img src="${luke}" style="min-height:${height}px; max-height:${height}px; width:auto; position:absolute; top: ${200 - height}px; right: 0; object-fit:cover; z-index: 1000" >
+                <img src="${land}"
+                style="min-height:200px; max-height:200px; width:100vw; opacity: 0.6">
+                <img src="${title}">
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>
 			</html>`;

@@ -1,8 +1,11 @@
 {
 	"name": "darkside",
 	"displayName": "DarkSide",
-	"description": "My VS Code extension",
-	"version": "0.0.1",
+	"author": "Darth Vins",
+	"publisher": "Darth Vins",
+	"description": "Join the dark side",
+	"icon": "media/darth.jpg",
+	"version": "0.0.2",
 	"engines": {
 		"vscode": "^1.60.0"
 	},
@@ -40,14 +43,94 @@
 		},
 		"commands": [
 			{
-				"command": "darkside.sayhello",
+				"command": "darkside.yoda",
 				"category": "DarkSide",
-				"title": "Say hello"
+				"title": "Yoda"
 			},
 			{
-				"command": "darkside.askquestion",
+				"command": "darkside.luke",
 				"category": "DarkSide",
-				"title": "Ask question"
+				"title": "Luke"
+			},
+			{
+				"command": "darkside.darth",
+				"category": "DarkSide",
+				"title": "Darth"
+			},
+			{
+				"command": "darkside.maul",
+				"category": "DarkSide",
+				"title": "Maul"
+			},
+			{
+				"command": "darkside.grev2",
+				"category": "DarkSide",
+				"title": "Grevious"
+			},
+			{
+				"command": "darkside.kylo",
+				"category": "DarkSide",
+				"title": "Kylo"
+			},
+			{
+				"command": "darkside.kylo2",
+				"category": "DarkSide",
+				"title": "Kylo opening"
+			},
+			{
+				"command": "darkside.asoka",
+				"category": "DarkSide",
+				"title": "Asoka"
+			},
+			{
+				"command": "darkside.droid",
+				"category": "DarkSide",
+				"title": "Droid"
+			},
+			{
+				"command": "darkside.palpatine",
+				"category": "DarkSide",
+				"title": "Palpatine"
+			},
+			{
+				"command": "darkside.obi",
+				"category": "DarkSide",
+				"title": "Obi"
+			},
+			{
+				"command": "darkside.asoka2",
+				"category": "DarkSide",
+				"title": "Angry asoka"
+			},
+			{
+				"command": "darkside.darth3",
+				"category": "DarkSide",
+				"title": "Darth opening"
+			},
+			{
+				"command": "darkside.darth4",
+				"category": "DarkSide",
+				"title": "Darth hanging"
+			},
+			{
+				"command": "darkside.dick",
+				"category": "DarkSide",
+				"title": "Dick"
+			},
+			{
+				"command": "darkside.lack",
+				"category": "DarkSide",
+				"title": "Lack"
+			},
+			{
+				"command": "darkside.power",
+				"category": "DarkSide",
+				"title": "Unlimited power"
+			},
+			{
+				"command": "darkside.destroy",
+				"category": "DarkSide",
+				"title": "Destroy you"
 			}
 		]
 	},
@@ -63,9 +146,11 @@
 		"test": "node ./out/test/runTest.js"
 	},
 	"dependencies": {
-		"vscode": "*"
+		"vsce": "^2.14.0"
+		
 	},
 	"devDependencies": {
+		"vscode": "*",
 		"@rollup/plugin-commonjs": "^20.0.0",
 		"@rollup/plugin-node-resolve": "^13.0.4",
 		"@rollup/plugin-typescript": "^8.2.5",

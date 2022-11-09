@@ -1,3 +1,4 @@
-# VS Code extension template
+# VS Dark side
 
-This is a starting template for VS Code extensions
+![alt text](media/luke.gif "The battle")
+Join the dark side!
