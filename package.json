@@ -5,7 +5,7 @@
 	"publisher": "Darth Vins",
 	"description": "Join the dark side",
 	"icon": "media/darth.jpg",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"engines": {
 		"vscode": "^1.60.0"
 	},
@@ -17,7 +17,7 @@
 		"url": ""
 	},
 	"activationEvents": [
-		"onView:darkside-sidebar"
+		"*"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -31,6 +31,13 @@
 			]
 		},
 		"views": {
+			"explorer": [
+				{
+					"type": "webview",
+				  "id": "darkside-sidebar-view",
+				  "name": "Dark side"
+				}
+			  ],
 			"darkside-sidebar-view": [
 				{
 					"type": "webview",

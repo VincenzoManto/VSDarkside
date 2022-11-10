@@ -16,9 +16,11 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0
 		? vscode.workspace.workspaceFolders[0].uri.fsPath
 		: '';
-	vscode.window.registerTreeDataProvider(
-		'darkside-sidebar-view',
-		new ViewProvider(rootPath)
+	context.subscriptions.push(
+		vscode.window.registerWebviewViewProvider(
+			"darkside-sidebar-view",
+			sidebarProvider
+		)
 	);
 
 	// Register a custom command
@@ -41,27 +43,28 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('darkside.lack', () => {
 		vscode.window.showInformationMessage("I find your lack of faith disturbing");
 		sidebarProvider.play('lack');
+		setTimeout(() => {
+			sidebarProvider.play('');
+		}, 30000);
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('darkside.destroy', () => {
 		vscode.window.showInformationMessage("Dont make me destroy you");
 		sidebarProvider.play('destroy');
+		setTimeout(() => {
+			sidebarProvider.play('');
+		}, 30000);
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('darkside.power', () => {
 		vscode.window.showInformationMessage("POOOWEEEERRR!!");
 		sidebarProvider.play('power');
+		setTimeout(() => {
+			sidebarProvider.play('');
+		}, 30000);
 	}));
 
-	context.subscriptions.push(vscode.commands.registerCommand('darkside.askquestion', () => {
-		vscode.window.showInformationMessage("Hello World!");
-		const panel = vscode.window.createTreeView(
-		'darkside-sidebar-view', 
-		{
-			treeDataProvider: new ViewProvider(rootPath)
-			}
-		);
-	}));
+	
 
 	
 }

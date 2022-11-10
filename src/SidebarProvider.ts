@@ -36,7 +36,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     }
 
     public revive(panel: vscode.WebviewView) {
-        this._view = panel;
+        this.play('');
     }
 
     private _getHtmlForWebview(webview: vscode.Webview, who: string, what = '') {
@@ -93,8 +93,8 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 			<head>
 				<meta charset="UTF-8">
 
-        <meta http-equiv="Content-Security-Policy" content="img-src https: data:; style-src 'unsafe-inline' ${webview.cspSource
-            }; script-src 'nonce-${nonce}';">
+                <meta http-equiv="Content-Security-Policy" content="img-src https: data:; style-src 'unsafe-inline' ${webview.cspSource
+                    }; script-src 'nonce-${nonce}';">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 				<link href="${styleResetUri}" rel="stylesheet">
 				<link href="${styleVSCodeUri}" rel="stylesheet">
@@ -106,11 +106,11 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 			</head>
             <body style="overflow:hidden;  padding: 0; margin: 0;  height:auto;background: #0b314733; ">
                 <audio autoplay>
-                <source src="${audio}" type="audio/mp3">
+                    <source src="${audio}" type="audio/mp3">
                 </audio>
                 <img src="${luke}" style="min-height:${height}px; max-height:${height}px; width:auto; position:absolute; top: ${200 - height}px; right: 0; object-fit:cover; z-index: 1000" >
                 <img src="${land}"
-                style="min-height:200px; max-height:200px; width:100vw; opacity: 0.6">
+                style=" object-fit:cover; min-height:200px; max-height:200px; width:100vw; opacity: 0.6">
                 <img src="${title}">
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>
