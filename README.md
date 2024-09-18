@@ -6,6 +6,12 @@ Turn your development journey into a galactic experience with **VS-Darkside**! I
 
 ---
 
+## Output
+
+![VS-Darkside Preview](media/screen.png)
+
+---
+
 ## Features ✨
 
 ### 🖥️ **Star Wars Animations**
