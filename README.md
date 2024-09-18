@@ -20,7 +20,7 @@ Turn your development journey into a galactic experience with **VS-Darkside**! I
 - Experience lightsaber duels and space battles directly in the sidebar.
 - Choose your allegiance (Dark Side or Light Side) and watch as iconic characters from *Star Wars* battle it out while you develop.
   
-  ![Sidebar Battle](images/grev2.png)
+  ![Sidebar Battle](media/grev2.gif)
 
 ---
 
@@ -28,7 +28,7 @@ Turn your development journey into a galactic experience with **VS-Darkside**! I
 - Hear the hum of lightsabers, TIE Fighters roaring, and R2-D2 chirping while you code.
 - Set up custom sound triggers for specific actions such as opening files, running code, or achieving important coding milestones.
 
-![Sound Effects](images/yoda.gif)
+![Sound Effects](media/yoda.gif)
 
 ---
 
