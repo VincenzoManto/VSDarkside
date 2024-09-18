@@ -87,6 +87,8 @@ Want to make this extension even more epic? Fork it on GitHub and submit a pull 
 
 This project is licensed under the MIT License.
 
+Please refer to [LICENSE.md](LICENSE.md)
+
 ---
 
 May the force be with you! 🌌
